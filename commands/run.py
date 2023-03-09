@@ -2,10 +2,9 @@ import os
 import subprocess
 import pandas as pd
 import numpy as np
-import time
 import click
 
-@click.group()
+@click.command()
 @click.option('--lite', is_flag=True, help='Run lite regression test. This will use 5mm datasets with ' 
               'shortened timeseries for faster processing. Runs on the following pipelines: default,'
               'benchmark-FNIRT, and rbc-options. Lite version should be selected if pull request '
@@ -17,10 +16,7 @@ import click
 @click.option('--outdir', '-o', required=True, type=str, help='Path to output directory. working,'
               'log, and output subdirectories will be stored in this path.')
 
-def reg_suite():
-    pass
 
-@reg_suite.command()
 def run(lite, full, data=None, outdir=None):
     """
     Will run C-PAC using either "lite" datasets or full datasets
@@ -51,7 +47,4 @@ def run(lite, full, data=None, outdir=None):
             datapath = 'datapath for full'
             #insert datalad subprocess here
             #datapath = data/path/for/lite
-    return(datapath, outdir)
-
-if __name__ == '__main__':  
-    reg_suite()
+    return(datapath, outdir)    
