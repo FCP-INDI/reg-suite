@@ -11,3 +11,5 @@ sudo apt-get install datalad git-annex-standalone
 pip install datalad-osf
 
 datalad clone ${PROJECT} reg-data
+
+echo reg-data

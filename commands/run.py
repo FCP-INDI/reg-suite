@@ -41,10 +41,12 @@ def run(lite, full, data=None, outdir=None):
         raise Exception(f'Must add data input path using --data flag')
     if (version == 'lite' or 'full') and data is None:
         if version == 'lite':
-            datapath = 'datapath for lite'
-            #insert datalad subprocess here
+            project = 'projectID'
         elif version == 'full':
-            datapath = 'datapath for full'
-            #insert datalad subprocess here
-            #datapath = data/path/for/lite
+            project = 'projectID'
+            
+        cmd = ['./bash_scripts/setup_datalad.sh', project]
+        result = subprocess.run(cmd, stdout=subprocess.PIPE)
+        datapath = result.stdout.decode('utf-8')
+
     return(datapath, outdir)
