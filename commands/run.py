@@ -19,7 +19,7 @@ import click
 
 def run(lite, full, data=None, outdir=None):
     """
-    Will run C-PAC using either "lite" datasets or full datasets
+    Run C-PAC with either "lite" or "full" regression datasets
     """
     if lite:
         version = 'lite'
@@ -47,4 +47,4 @@ def run(lite, full, data=None, outdir=None):
             datapath = 'datapath for full'
             #insert datalad subprocess here
             #datapath = data/path/for/lite
-    return(datapath, outdir)    
+    return(datapath, outdir)
