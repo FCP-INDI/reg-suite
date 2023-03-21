@@ -2,17 +2,22 @@
 
 VERSION="$1"
 
-git config --global user.email "CMI_CPAC_Support@childmind.org"
-git config --global user.name "Theodore (Machine User)"
-wget -O- http://neuro.debian.net/lists/focal.us-tn.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
-sudo apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
-sudo apt-get update
-sudo apt-get install datalad git-annex-standalone
-pip3 install datalad-osf
+git config --global user.email "amygutierrezbme@gmail.com"
+git config --global user.name "amygutierrez"
 
-datalad clone osf://qjn8d/ reg-data
+#pip install datalad-installer
+#datalad-installer git-annex -m datalad/packages
+#git config --global filter.annex.process "git-annex filter-process"
+#pip install --user datalad
+#yes | conda install -c conda-forge datalad
+#pip3 install datalad
+#datalad clone osf://qjn8d/ reg-data
+
+pip3 install osfclient
+osf -p qjn8d clone reg-data
 
 if [ ${VERSION} == 'lite' ]; then
-    find . -name reg-data/reg_5mm_pack -print
+    find "$(pwd -P)" -name reg_5mm_pack -print
 elif [ ${VERSION} == 'full' ]; then
-    find . -name reg-data/raw -print
+    find "$(pwd -P)" -name raw -print
+fi
