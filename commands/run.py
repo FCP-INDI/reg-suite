@@ -14,9 +14,10 @@ def run_cpac(version, datapath=None, git_home=None):
         bids_data = f'{datapath}/data'
         pipeline_config = f'{datapath}/configs'
 
-    cmd = ['bash', f'{git_home}/bash_scripts/run_cpac.sh', bids_data, preconfigs, pipeline_config]
+    cmd = ['bash', f'{git_home}/bash_scripts/run_cpac.sh', bids_data, preconfigs, pipeline_config, version]
     result = subprocess.run(cmd, stdout=subprocess.PIPE)
     output = result.stdout.decode()
+    print("run output: ", output)
 
     return
 
@@ -42,8 +43,15 @@ def run(lite, full):
     click.echo(f"Selected {version} version of regression suite")
     
     cmd = ['bash', f'{git_home}/bash_scripts/setup_datalad.sh', version]
-    result = subprocess.run(cmd, stdout=subprocess.PIPE)
-    datapath = result.stdout.decode()
+    result = subprocess.check_output(cmd)
+    
+    path = None
+    for line in result.splitlines():
+        if line.startswith(b'datapath='):
+            path = line.split(b'=')[1]
+            break
+    datapath = path.decode()
+    print("datapath: ", datapath)
     
     output = run_cpac(version, datapath, git_home)
 

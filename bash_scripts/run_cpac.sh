@@ -29,22 +29,20 @@ if [ ${VERSION} == 'lite' ]; then
                 datapath=${DATA_DIR}/Site-SI
             fi
 
-            OUTPUT=${OUT}/${pipeline}/${data}
+            OUTPUT=/output/${pipeline}/${data}
             [ ! -d  ${OUTPUT} ] && mkdir -p ${OUTPUT}
 
             cat << TMP > reglite_${pipeline}_${data}_${subject}.sh
 #!/usr/bin/bash
 
-HOME=${HOME} \
-docker run \
-    --rm -it \
+docker run --rm -it \
     --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd -v /etc/group:/etc/group \
     -v ${datapath}:/reg-data \
     -v ${OUTPUT}:/outputs \
     -v ${CONFIGS}:/pipeline \
-    fcpindi/c-pac:nightly /reg-data /outputs participant \
+    ${{ env.DOCKER_TAG }} /reg-data /outputs participant \
     --save_working_dir --skip_bids_validator \
-    --pipeline_file /pipeline/${preconfig}-lite.yml \
+    --pipeline_file /pipeline/${pipeline}_lite.yml \
     --participant_label ${subject} \
     --n_cpus 2
 TMP
