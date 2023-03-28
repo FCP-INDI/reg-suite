@@ -3,36 +3,33 @@
 DATA_DIR="$1"
 PRECONFIGS="$2"
 CONFIGS="$3"
-VERSION="$4"
 DATA_SOURCE="KKI Site-CBIC Site-SI HNU_1"
 
 echo ${DATA_DIR}
 echo ${PRECONFIGS}
 echo ${CONFIGS}
-echo ${VERSION}
 
-if [ ${VERSION} == 'lite' ]; then
-    echo "Running lite regression test ..."
-    for pipeline in ${PRECONFIGS}; do
-        for data in ${DATA_SOURCE}; do
-            if [ ${data} == 'KKI' ]; then
-                subject="sub-2014113"
-                datapath=${DATA_DIR}/KKI
-            elif [ ${data} == 'HNU_1' ]; then
-                subject="sub-0025428"
-                datapath=${DATA_DIR}/HNU_1
-            elif [ ${data} == 'Site-CBIC' ]; then
-                subject="sub-NDARAA947ZG5"
-                datapath=${DATA_DIR}/Site-CBIC
-            elif [ ${data} == 'Site-SI' ]; then
-                subject="sub-NDARAD481FXF"
-                datapath=${DATA_DIR}/Site-SI
-            fi
+echo "Running lite regression test ..."
+for pipeline in ${PRECONFIGS}; do
+    for data in ${DATA_SOURCE}; do
+        if [ ${data} == 'KKI' ]; then
+            subject="sub-2014113"
+            datapath=${DATA_DIR}/KKI
+        elif [ ${data} == 'HNU_1' ]; then
+            subject="sub-0025428"
+            datapath=${DATA_DIR}/HNU_1
+        elif [ ${data} == 'Site-CBIC' ]; then
+            subject="sub-NDARAA947ZG5"
+            datapath=${DATA_DIR}/Site-CBIC
+        elif [ ${data} == 'Site-SI' ]; then
+            subject="sub-NDARAD481FXF"
+            datapath=${DATA_DIR}/Site-SI
+        fi
 
-            OUTPUT=/output/${pipeline}/${data}
-            [ ! -d  ${OUTPUT} ] && mkdir -p ${OUTPUT}
+        OUTPUT=/output/${pipeline}/${data}
+        [ ! -d  ${OUTPUT} ] && mkdir -p ${OUTPUT}
 
-            cat << TMP > reglite_${pipeline}_${data}_${subject}.sh
+        cat << TMP > reglite_${pipeline}_${data}_${subject}.sh
 #!/usr/bin/bash
 
 docker run --rm -it \
@@ -49,12 +46,9 @@ TMP
         chmod +x reglite_${pipeline}_${data}_${subject}.sh
         #bash reglite_${pipeline}_${data}_${subject}.sh
         echo "Finished reglite_${pipeline}_${data}_${subject}.sh"
-        done
     done
+done
 
-elif [ ${VERSION} == 'full' ]; then
-    echo "Running full regression test ..."
-fi
 
 
 #docker run --rm \

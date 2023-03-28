@@ -9,14 +9,18 @@ def run_cpac(version, datapath=None, git_home=None):
         preconfigs = 'default benchmark-FNIRT rbc-options'
         bids_data = f'{datapath}/data'
         pipeline_config = f'{datapath}/configs'
+        cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-lite.sh', bids_data, preconfigs, pipeline_config]
+        result = subprocess.run(cmd, stdout=subprocess.PIPE)
+        output = result.stdout.decode()
+        
     elif version == 'full':
         preconfigs = 'default rbc-options benchmark-FNIRT fmriprep-options ndmg fx-options abcd-options ccs-options rodent monkey'
         bids_data = f'{datapath}/data'
         pipeline_config = f'{datapath}/configs'
-
-    cmd = ['bash', f'{git_home}/bash_scripts/run_cpac.sh', bids_data, preconfigs, pipeline_config, version]
-    result = subprocess.run(cmd, stdout=subprocess.PIPE)
-    output = result.stdout.decode()
+        cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-full.sh', bids_data, preconfigs, pipeline_config]
+        result = subprocess.run(cmd, stdout=subprocess.PIPE)
+        output = result.stdout.decode()
+        
     print("run output: ", output)
 
     return
