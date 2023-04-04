@@ -1,7 +1,5 @@
 import os
 import subprocess
-import pandas as pd
-import numpy as np
 import click
 
 def run_cpac(version, datapath=None, git_home=None):
