@@ -48,6 +48,7 @@ docker run --rm \
     --n_cpus 2
 TMP
         chmod +x reglite_${pipeline}_${data}_${subject}.sh
+        cat reglite_${pipeline}_${data}_${subject}.sh
         bash reglite_${pipeline}_${data}_${subject}.sh
         echo "Finished reglite_${pipeline}_${data}_${subject}.sh"
     done

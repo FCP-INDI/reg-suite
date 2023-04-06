@@ -53,12 +53,12 @@ def run(lite, full, docker_tag, workspace):
     cmd = ['bash', f'{git_home}/bash_scripts/setup_datalad.sh', version, workspace]
     result = subprocess.check_output(cmd)
     
-    #path = None
-    #for line in result.splitlines():
-    #    if line.startswith(b'datapath='):
-    #        path = line.split(b'=')[1]
-    #        break
-    datapath = result.decode()
+    path = None
+    for line in result.splitlines():
+        if line.startswith(b'datapath='):
+            path = line.split(b'=')[1]
+            break
+    datapath = path.decode()
     print("datapath: ", datapath)
     
     
