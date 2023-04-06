@@ -4,10 +4,12 @@ DATA_DIR="$1"
 PRECONFIGS="$2"
 CONFIGS="$3"
 DATA_SOURCE="KKI Site-CBIC Site-SI HNU_1"
+DOCKER_TAG="$4"
 
 echo ${DATA_DIR}
 echo ${PRECONFIGS}
 echo ${CONFIGS}
+echo ${DOCKER_TAG}
 
 echo "Running full regression test ..."
 for pipeline in ${PRECONFIGS}; do
@@ -37,7 +39,7 @@ docker run --rm -it \
     -v ${datapath}:/reg-data \
     -v ${OUTPUT}:/outputs \
     -v ${CONFIGS}:/pipeline \
-    ${{ env.DOCKER_TAG }} /reg-data /outputs participant \
+    ${DOCKER_TAG} /reg-data /outputs participant \
     --save_working_dir --skip_bids_validator \
     --pipeline_file /pipeline/${pipeline}_lite.yml \
     --participant_label ${subject} \
