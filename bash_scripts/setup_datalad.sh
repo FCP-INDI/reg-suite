@@ -11,9 +11,9 @@ osf -p qjn8d clone ${GITHUB_WORKSPACE}/reg-data
 
 if [ ${VERSION} == 'lite' ]; then
     datapath=$(find "$(pwd -P)" -name reg_5mm_pack -print)
-    echo ${datapath}
+    echo "datapath=${datapath}"
 
 elif [ ${VERSION} == 'full' ]; then
     datapath=$(find "$(pwd -P)" -name raw -print)
-    echo ${datapath}
+    echo "datapath=${datapath}"
 fi
