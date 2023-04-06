@@ -36,7 +36,7 @@ def run_cpac(version, datapath=None, git_home=None, docker_tag=None, workspace=N
 @click.option('--docker_tag','-t', type=str, help = 'Docker tag. This input is generated in git actions '
               'and should remain as $\{\{ env.DOCKER_TAG \}\}`')
 @click.option('--workspace','-w', type=str, help = 'Github workspace. This input is generated in git actions '
-              'and should remain as $\{\{ github.workspace \}\}')
+              'and should remain as $\{\{ GITHUB_WORKSPACE \}\}')
 
 def run(lite, full, docker_tag, workspace):
     """
@@ -50,16 +50,17 @@ def run(lite, full, docker_tag, workspace):
         version = 'full'
     click.echo(f"Selected {version} version of regression suite")
     
-    cmd = ['bash', f'{git_home}/bash_scripts/setup_datalad.sh', version]
+    cmd = ['bash', f'{git_home}/bash_scripts/setup_datalad.sh', version, workspace]
     result = subprocess.check_output(cmd)
     
-    path = None
-    for line in result.splitlines():
-        if line.startswith(b'datapath='):
-            path = line.split(b'=')[1]
-            break
-    datapath = path.decode()
+    #path = None
+    #for line in result.splitlines():
+    #    if line.startswith(b'datapath='):
+    #        path = line.split(b'=')[1]
+    #        break
+    datapath = result.decode()
     print("datapath: ", datapath)
+    
     
     output = run_cpac(version, datapath, git_home, docker_tag, workspace)
 

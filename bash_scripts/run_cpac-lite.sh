@@ -4,14 +4,14 @@ DATA_DIR="$1"
 PRECONFIGS="$2"
 CONFIGS="$3"
 DOCKER_TAG="$4"
-GIT_WORKSPACE="$5"
+GITHUB_WORKSPACE="$5"
 DATA_SOURCE="KKI Site-CBIC Site-SI HNU_1"
 
 echo ${DATA_DIR}
 echo ${PRECONFIGS}
 echo ${CONFIGS}
 echo ${DOCKER_TAG}
-echo ${GIT_WORKSPACE}
+echo ${GITHUB_WORKSPACE}
 
 echo "Running lite regression test ..."
 for pipeline in ${PRECONFIGS}; do
@@ -30,7 +30,7 @@ for pipeline in ${PRECONFIGS}; do
             datapath=${DATA_DIR}/Site-SI
         fi
 
-        OUTPUT=${GIT_WORKSPACE}/output/${pipeline}/${data}
+        OUTPUT=${GITHUB_WORKSPACE}/output/${pipeline}/${data}
         [ ! -d  ${OUTPUT} ] && mkdir -p ${OUTPUT}
 
         cat << TMP > reglite_${pipeline}_${data}_${subject}.sh
