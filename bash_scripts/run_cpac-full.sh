@@ -36,7 +36,7 @@ for pipeline in ${PRECONFIGS}; do
         cat << TMP > regfull_${pipeline}_${data}_${subject}.sh
 #!/usr/bin/bash
 
-docker run --rm -it \
+docker run --rm \
     --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd -v /etc/group:/etc/group \
     -v ${datapath}:/reg-data \
     -v ${OUTPUT}:/outputs \
