@@ -34,7 +34,7 @@ def run_cpac(version, datapath=None, git_home=None, docker_tag=None):
               '(17 subjects from 4 Sites) on 9 pipelines. Full version should be selected if ready '
               'to merge to main branch.')
 @click.option('--docker_tag', type=str, help = 'Docker tag. This input is generated in git actions '
-              'and should remain as `${{ enc.DOCKER_TAG }}`')
+              'and should remain as \`$\{\{ env.DOCKER_TAG \}\}\`')
 
 def run(lite, full, docker_tag):
     """
