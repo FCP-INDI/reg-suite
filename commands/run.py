@@ -36,7 +36,7 @@ def run_cpac(version, datapath=None, git_home=None, docker_tag=None, workspace=N
 @click.option('--docker_tag','-t', type=str, help = 'Docker tag. This input is generated in git actions '
               'and should remain as $\{\{ env.DOCKER_TAG \}\}`')
 @click.option('--workspace','-w', type=str, help = 'Github workspace. This input is generated in git actions '
-              'and should remain as $\{\{ GITHUB_WORKSPACE \}\}')
+              'and should remain as $GITHUB_WORKSPACE')
 
 def run(lite, full, docker_tag, workspace):
     """
