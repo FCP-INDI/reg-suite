@@ -4,10 +4,10 @@ import click
 
 def run_cpac(version, datapath=None, git_home=None, docker_tag=None, workspace=None):
     if version == 'lite':
-        preconfigs = 'default benchmark-FNIRT rbc-options'
+        reg_data = datapath
         bids_data = f'{datapath}/data'
         pipeline_config = f'{datapath}/configs'
-        cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-lite.sh', bids_data, preconfigs,
+        cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-lite.sh', reg_data, bids_data, 
                pipeline_config, docker_tag, workspace]
         result = subprocess.run(cmd, stdout=subprocess.PIPE)
         output = result.stdout.decode()
