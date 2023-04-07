@@ -40,7 +40,7 @@ for pipeline in ${PRECONFIGS}; do
 
 docker run --rm \
     --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd -v /etc/group:/etc/group \
-    -v ${REG_DATA}:/reg-data
+    -v ${REG_DATA}:/reg-data \
     -v ${datapath}:/data \
     -v ${OUTPUT}:/outputs \
     -v ${PIPELINE_CONFIGS}:/pipeline_configs \
