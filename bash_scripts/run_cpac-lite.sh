@@ -6,7 +6,7 @@ PIPELINE_CONFIGS="$3"
 DOCKER_TAG="$4"
 GITHUB_WORKSPACE="$5"
 DATA_SOURCE="KKI Site-CBIC Site-SI HNU_1"
-PRECONFIGS="default benchmark-FNIRT rbc-options"
+PRECONFIGS="default benchmark-FNIRT"
 
 echo "OSF Data: ${REG_DATA}"
 echo "Data Directory: ${DATA_DIR}"
