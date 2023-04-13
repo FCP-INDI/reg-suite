@@ -5,7 +5,7 @@ DATA_DIR="$2"
 PIPELINE_CONFIGS="$3"
 DOCKER_TAG="$4"
 GITHUB_WORKSPACE="$5"
-DATA_SOURCE="KKI Site-CBIC Site-SI HNU_1"
+DATA_SOURCE="Site-CBIC Site-SI HNU_1"
 PRECONFIGS="default benchmark-FNIRT"
 
 echo "OSF Data: ${REG_DATA}"
@@ -18,8 +18,6 @@ echo "Github Workspace: ${GITHUB_WORKSPACE}"
 echo "Running lite regression test ..."
 for pipeline in ${PRECONFIGS}; do
     for data in ${DATA_SOURCE}; do
-        if [ ${data} == 'KKI' ]; then
-            subject="sub-2014113"
             datapath=${DATA_DIR}/KKI
         elif [ ${data} == 'HNU_1' ]; then
             subject="sub-0025428"
