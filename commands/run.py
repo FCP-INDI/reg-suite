@@ -13,7 +13,8 @@ def run_cpac(version, datapath=None, git_home=None, docker_tag=None, workspace=N
         output = result.stdout.decode()
         
     elif version == 'full':
-        preconfigs = 'default rbc-options benchmark-FNIRT fmriprep-options ndmg fx-options abcd-options ccs-options rodent monkey'
+        preconfigs = 'default rbc-options benchmark-FNIRT fmriprep-options ndmg fx-options'\
+                     'abcd-options ccs-options rodent monkey'
         bids_data = f'{datapath}/data'
         pipeline_config = f'{datapath}/configs'
         cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-full.sh', bids_data, preconfigs,
