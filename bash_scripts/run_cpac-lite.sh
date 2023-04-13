@@ -19,7 +19,7 @@ echo "Running lite regression test ..."
 for pipeline in ${PRECONFIGS}; do
     for data in ${DATA_SOURCE}; do
             datapath=${DATA_DIR}/KKI
-        elif [ ${data} == 'HNU_1' ]; then
+        if [ ${data} == 'HNU_1' ]; then
             subject="sub-0025428"
             datapath=${DATA_DIR}/HNU_1
         elif [ ${data} == 'Site-CBIC' ]; then
