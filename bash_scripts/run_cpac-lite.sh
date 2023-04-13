@@ -37,8 +37,6 @@ for pipeline in ${PRECONFIGS}; do
 #!/usr/bin/bash
 
 docker run --rm \
-    --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd \
-    -v /etc/group:/etc/group \
     -v ${REG_DATA}:/reg-data \
     -v ${datapath}:/data \
     -v ${OUTPUT}:/outputs \
