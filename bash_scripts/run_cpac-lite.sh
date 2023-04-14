@@ -18,7 +18,6 @@ echo "Github Workspace: ${GITHUB_WORKSPACE}"
 echo "Running lite regression test ..."
 for pipeline in ${PRECONFIGS}; do
     for data in ${DATA_SOURCE}; do
-            datapath=${DATA_DIR}/KKI
         if [ ${data} == 'HNU_1' ]; then
             subject="sub-0025428"
             datapath=${DATA_DIR}/HNU_1
@@ -45,7 +44,7 @@ docker run --rm \
     --save_working_dir --skip_bids_validator \
     --pipeline_file /pipeline_configs/${pipeline}_lite.yml \
     --participant_label ${subject} \
-    --n_cpus 1 --mem_gb 7
+    --n_cpus 2 --mem_gb 7
 TMP
         chmod +x reglite_${pipeline}_${data}_${subject}.sh
         bash reglite_${pipeline}_${data}_${subject}.sh
