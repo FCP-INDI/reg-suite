@@ -18,7 +18,7 @@ def run_cpac(version, datapath=None, git_home=None, docker_tag=None,
         pipeline_config = f'{datapath}/configs'
         cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-full.sh', bids_data,
                preconfigs, pipeline_config, docker_tag, workspace]
-    result = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    result = subprocess.run(cmd, stdout=subprocess.PIPE)
     output = result.stdout.decode()
     print("run output: ", output)
 
