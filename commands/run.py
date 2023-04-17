@@ -1,28 +1,30 @@
 import os
+import sys
 import subprocess
 import click
 
-def run_cpac(version, datapath=None, git_home=None, docker_tag=None, workspace=None):
+def run_cpac(version, datapath=None, git_home=None, docker_tag=None,
+             workspace=None):
     if version == 'lite':
         reg_data = datapath
         bids_data = f'{datapath}/data'
         pipeline_config = f'{datapath}/configs'
-        cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-lite.sh', reg_data, bids_data, 
-               pipeline_config, docker_tag, workspace]
-        result = subprocess.run(cmd, stdout=subprocess.PIPE)
-        output = result.stdout.decode()
+        cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-lite.sh', reg_data,
+               bids_data, pipeline_config, docker_tag, workspace]
         
     elif version == 'full':
-        preconfigs = 'default rbc-options benchmark-FNIRT fmriprep-options ndmg fx-options'\
-                     'abcd-options ccs-options rodent monkey'
+        preconfigs = ('default rbc-options benchmark-FNIRT fmriprep-options '
+                      'ndmg fx-options abcd-options ccs-options rodent monkey')
         bids_data = f'{datapath}/data'
         pipeline_config = f'{datapath}/configs'
-        cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-full.sh', bids_data, preconfigs,
-               pipeline_config, docker_tag, workspace]
-        result = subprocess.run(cmd, stdout=subprocess.PIPE)
-        output = result.stdout.decode()
-        
-    print("run output: ", output)
+        cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-full.sh', bids_data,
+               preconfigs, pipeline_config, docker_tag, workspace]
+    result = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+    for line in result.stdout:
+        sys.stdout.write(line)
+    #output = result.stdout.decode()    
+    #print("run output: ", output)
 
     return
 

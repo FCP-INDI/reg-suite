@@ -42,11 +42,11 @@ docker run --rm \
     -v ${datapath}:/data \
     -v ${OUTPUT}:/outputs \
     -v ${PIPELINE_CONFIGS}:/pipeline_configs \
-    ${DOCKER_TAG} /data /outputs participant \
+    ${DOCKER_TAG} /bin/bash -c "id && ls -l /home/c-pac_user/.* && /data /outputs participant \
     --save_working_dir --skip_bids_validator \
     --pipeline_file /pipeline_configs/${pipeline}_lite.yml \
     --participant_label ${subject} \
-    --n_cpus 2 --mem_gb 7
+    --n_cpus 1 --mem_gb 7
 TMP
         chmod +x reglite_${pipeline}_${data}_${subject}.sh
         bash reglite_${pipeline}_${data}_${subject}.sh
