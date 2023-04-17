@@ -21,9 +21,9 @@ def run_cpac(version, datapath=None, git_home=None, docker_tag=None,
                preconfigs, pipeline_config, docker_tag, workspace]
     result = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
-    for line in result.stdout:
-        sys.stdout.write(line)
-    #output = result.stdout.decode()    
+    output = result.stdout.decode()
+    for line in output.stdout:
+        sys.stdout.write(line)   
     #print("run output: ", output)
 
     return
