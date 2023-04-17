@@ -1,5 +1,4 @@
 import os
-import sys
 import subprocess
 import click
 
@@ -19,12 +18,9 @@ def run_cpac(version, datapath=None, git_home=None, docker_tag=None,
         pipeline_config = f'{datapath}/configs'
         cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-full.sh', bids_data,
                preconfigs, pipeline_config, docker_tag, workspace]
-    result = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
+    result = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     output = result.stdout.decode()
-    for line in output.stdout:
-        sys.stdout.write(line)   
-    #print("run output: ", output)
+    print("run output: ", output)
 
     return
 
