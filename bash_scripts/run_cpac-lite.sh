@@ -35,6 +35,8 @@ for pipeline in ${PRECONFIGS}; do
         cat << TMP > reglite_${pipeline}_${data}_${subject}.sh
 #!/usr/bin/bash
 
+ls -al
+
 docker run --rm \
     --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd \
     -v /etc/group:/etc/group \
