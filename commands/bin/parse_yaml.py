@@ -1,5 +1,4 @@
 import os
-import click
 import yaml
 
 def get_dir(paths=None):

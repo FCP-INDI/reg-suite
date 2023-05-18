@@ -1,7 +1,7 @@
 import os
-import subprocess
 import click
-from commands.bin.utils import download_data
+import subprocess
+from commands.bin import utils
 
 def run_cpac(version, datapath=None, git_home=None, docker_tag=None,
              workspace=None):
@@ -52,7 +52,7 @@ def run(lite, full, docker_tag, workspace):
     click.echo(f"Selected {version} version of regression suite")
     project = 'qjn8d'
 
-    datapath = download_data(workspace, project, git_home)
+    datapath = utils.download_data(workspace, project, git_home)
 
     output = run_cpac(version, datapath, git_home, docker_tag, workspace)
 
