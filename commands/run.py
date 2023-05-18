@@ -1,6 +1,7 @@
 import os
 import subprocess
 import click
+from commands.bin.utils import download_data
 
 def run_cpac(version, datapath=None, git_home=None, docker_tag=None,
              workspace=None):
@@ -10,7 +11,7 @@ def run_cpac(version, datapath=None, git_home=None, docker_tag=None,
         pipeline_config = f'{datapath}/configs'
         cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-lite.sh', reg_data,
                bids_data, pipeline_config, docker_tag, workspace]
-        
+
     elif version == 'full':
         preconfigs = ('default rbc-options benchmark-FNIRT fmriprep-options '
                       'ndmg fx-options abcd-options ccs-options rodent monkey')
@@ -41,6 +42,7 @@ def run(lite, full, docker_tag, workspace):
     """
     Run C-PAC with either "lite" or "full" regression datasets
     """
+
     git_home = os.path.normpath(os.path.dirname(os.path.abspath(__file__)) + os.sep + os.pardir)
 
     if lite:
@@ -48,19 +50,10 @@ def run(lite, full, docker_tag, workspace):
     elif full:
         version = 'full'
     click.echo(f"Selected {version} version of regression suite")
-    
-    cmd = ['bash', f'{git_home}/bash_scripts/setup_datalad.sh', version, workspace]
-    result = subprocess.check_output(cmd)
-    
-    path = None
-    for line in result.splitlines():
-        if line.startswith(b'datapath='):
-            path = line.split(b'=')[1]
-            break
-    datapath = path.decode()
-    print("datapath: ", datapath)
-    
-    
+    project = 'qjn8d'
+
+    datapath = download_data(workspace, project, git_home)
+
     output = run_cpac(version, datapath, git_home, docker_tag, workspace)
 
     return
