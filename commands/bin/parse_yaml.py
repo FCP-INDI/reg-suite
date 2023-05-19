@@ -73,7 +73,7 @@ def cpac_yaml(pipeline1, pipeline2, correlations_dir, run_name, n_cpus):
     
     pipeline_1 = parse_yaml(pipeline1, 'pipeline_1')
     pipeline_2 = parse_yaml(pipeline2, 'pipeline_2')
-        
+
     yaml_contents = write_yaml(pipeline_1, pipeline_2, correlations_dir, 
                                run_name, n_cpus)
 
