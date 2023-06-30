@@ -5,14 +5,14 @@ from commands.bin import utils
 
 def run_cpac(version, datapath=None, git_home=None, docker_tag=None,
              workspace=None):
-    if version == 'lite':
+    if 'lite' in version:
         reg_data = datapath
         bids_data = f'{datapath}/data'
         pipeline_config = f'{datapath}/configs'
         cmd = ['bash', f'{git_home}/bash_scripts/run_cpac-lite.sh', reg_data,
                bids_data, pipeline_config, docker_tag, workspace]
 
-    elif version == 'full':
+    elif 'full' in version:
         preconfigs = ('default rbc-options benchmark-FNIRT fmriprep-options '
                       'ndmg fx-options abcd-options ccs-options rodent monkey')
         bids_data = f'{datapath}/data'
