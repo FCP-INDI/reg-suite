@@ -1,11 +1,14 @@
 import os
 import yaml
 
-def get_dir(paths=None):
-    for root, dirs, files in os.walk(paths):
-        for dir in dirs:
-            if 'pipeline_' in dir:
-                directory = os.path.join(root, dir)
+def get_dir(paths):
+    if not paths:
+        directory = None
+    else:
+        for root, dirs, files in os.walk(paths):
+            for dir in dirs:
+                if 'pipeline_' in dir:
+                    directory = os.path.join(root, dir)
     return directory
 
 def write_pipeline_yaml(output_dir=None, working_dir=None, log_dir=None, \
@@ -31,8 +34,7 @@ def parse_yaml(directory=None, pipeline_name=None):
         if os.path.isdir(os.path.join(directory, subdir)):
             paths[f"{subdir}_dir"] = (os.path.join(directory, subdir))
         else:
-            raise Exception(f'The directory you provided does not have '
-                            f'a {subdir} directory')
+            paths[f"{subdir}_dir"] = None
 
     log_dir = get_dir(paths['log_dir'])
 
