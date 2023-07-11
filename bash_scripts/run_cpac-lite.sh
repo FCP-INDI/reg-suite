@@ -35,13 +35,11 @@ for pipeline in ${PRECONFIGS}; do
         cat << TMP > reglite_${pipeline}_${data}_${subject}.sh
 #!/usr/bin/bash
 
-docker run --rm \
-    --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd \
-    -v /etc/group:/etc/group \
-    -v ${REG_DATA}:/reg-data \
-    -v ${datapath}:/data \
-    -v ${OUTPUT}:/outputs \
-    -v ${PIPELINE_CONFIGS}:/pipeline_configs \
+singularity run --rm \
+    -B ${REG_DATA}:/reg-data \
+    -B ${datapath}:/data \
+    -B ${OUTPUT}:/outputs \
+    -B ${PIPELINE_CONFIGS}:/pipeline_configs \
     ${DOCKER_TAG} /data /outputs participant \
     --save_working_dir --skip_bids_validator \
     --pipeline_file /pipeline_configs/${pipeline}_lite.yml \
